@@ -8,10 +8,10 @@ import numpy as np
 import pandas as pd
 import io
 
-dataset = pd.read_csv('../NLP_Tokenization&Embeddings/combined_data.csv')
+dataset = pd.read_csv('D:/ProjectsRepository/EvaluationResultsSentimentAnalysis/newsph-nli/train.csv')
 
-sentences = dataset['text'].tolist()
-labels = dataset['sentiment'].tolist()
+sentences = dataset['s1'].tolist()
+labels = dataset['label'].tolist()
 
 # Print some example sentences and labels
 for x in range(2):

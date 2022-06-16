@@ -29,17 +29,17 @@ testing_labels_final = np.array(testing_labels)
 vocab_size = 1000
 embedding_dim = 16
 max_length = 100
-trunc_type='post'
-padding_type='post'
+trunc_type = 'post'
+padding_type = 'post'
 
 vocab_size = 500
 embedding_dim = 16
 max_length = 50
-trunc_type='post'
-padding_type='post'
+trunc_type = 'post'
+padding_type = 'post'
 oov_tok = "<OOV>"
 
-tokenizer = Tokenizer(num_words = vocab_size, oov_token=oov_tok)
+tokenizer = Tokenizer(num_words=vocab_size, oov_token=oov_tok)
 tokenizer.fit_on_texts(training_sentences)
 word_index = tokenizer.word_index
 training_sequences = tokenizer.texts_to_sequences(training_sentences)
@@ -55,10 +55,12 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(6, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
-model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.comp
 model.summary()
-num_epochs = 30
-history = model.fit(training_padded, training_labels_final, epochs=num_epochs, validation_data=(testing_padded, testing_labels_final))
+num_epochs = 100
+history = model.fit(training_padded, training_labels_final, epochs=num_epochs,
+                    validation_data=(testing_padded, testing_labels_final))
 
 
 def plot_graphs(history, string):
@@ -76,7 +78,7 @@ plot_graphs(history, "loss")
 # First get the weights of the embedding layer
 e = model.layers[0]
 weights = e.get_weights()[0]
-print(weights.shape) # shape: (vocab_size, embedding_dim)
+print(weights.shape)  # shape: (vocab_size, embedding_dim)
 import io
 
 # Create the reverse word index
@@ -86,21 +88,21 @@ reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 out_v = io.open('vecs.tsv', 'w', encoding='utf-8')
 out_m = io.open('meta.tsv', 'w', encoding='utf-8')
 for word_num in range(1, vocab_size):
-  word = reverse_word_index[word_num]
-  embeddings = weights[word_num]
-  out_m.write(word + "\n")
-  out_v.write('\t'.join([str(x) for x in embeddings]) + "\n")
+    word = reverse_word_index[word_num]
+    embeddings = weights[word_num]
+    out_m.write(word + "\n")
+    out_v.write('\t'.join([str(x) for x in embeddings]) + "\n")
 out_v.close()
 out_m.close()
 
 # Download the files
 try:
-  from google.colab import files
+    from google.colab import files
 except ImportError:
-  pass
+    pass
 else:
-  files.download('vecs.tsv')
-  files.download('meta.tsv')
+    files.download('vecs.tsv')
+    files.download('meta.tsv')
 
 # Use the model to predict a review
 fake_reviews = ['I love this phone', 'I hate spaghetti',
@@ -116,7 +118,7 @@ fake_reviews = ['I love this phone', 'I hate spaghetti',
 print(fake_reviews)
 
 # Create the sequences
-padding_type='post'
+padding_type = 'post'
 sample_sequences = tokenizer.texts_to_sequences(fake_reviews)
 fakes_padded = pad_sequences(sample_sequences, padding=padding_type, maxlen=max_length)
 
@@ -126,9 +128,9 @@ classes = model.predict(fakes_padded)
 
 # The closer the class is to 1, the more positive the review is deemed to be
 for x in range(len(fake_reviews)):
-  print(fake_reviews[x])
-  print(classes[x])
-  print('\n')
+    print(fake_reviews[x])
+    print(classes[x])
+    print('\n')
 
 # Try adding reviews of your own
 # Add some negative words (such as "not") to the good reviews and see what happens

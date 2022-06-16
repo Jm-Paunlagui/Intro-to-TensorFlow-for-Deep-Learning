@@ -54,35 +54,38 @@ for cl in classes:
     #     shutil.move(v, os.path.join(base_dir, 'val', cl))
 
 # Understanding our data
-num_roses_tr = len(os.listdir(train_roses))
-num_daisy_tr = len(os.listdir(train_daisy))
-num_dandelion_tr = len(os.listdir(train_dandelion))
-num_sunflowers_tr = len(os.listdir(train_sunflowers))
-num_tulips_tr = len(os.listdir(train_tulips))
 
-num_roses_val = len(os.listdir(val_roses))
-num_daisy_val = len(os.listdir(val_daisy))
-num_dandelion_val = len(os.listdir(val_dandelion))
-num_sunflowers_val = len(os.listdir(val_sunflowers))
-num_tulips_val = len(os.listdir(val_tulips))
+# num_roses_tr = len(os.listdir(train_roses))
+# num_daisy_tr = len(os.listdir(train_daisy))
+# num_dandelion_tr = len(os.listdir(train_dandelion))
+# num_sunflowers_tr = len(os.listdir(train_sunflowers))
+# num_tulips_tr = len(os.listdir(train_tulips))
+#
+# num_roses_val = len(os.listdir(val_roses))
+# num_daisy_val = len(os.listdir(val_daisy))
+# num_dandelion_val = len(os.listdir(val_dandelion))
+# num_sunflowers_val = len(os.listdir(val_sunflowers))
+# num_tulips_val = len(os.listdir(val_tulips))
 
-total_train = num_roses_tr + num_daisy_tr + num_dandelion_tr + num_sunflowers_tr + num_tulips_tr
-total_val = num_roses_val + num_daisy_val + num_dandelion_val + num_sunflowers_val + num_tulips_val
+# total_train = num_roses_tr + num_daisy_tr + num_dandelion_tr + num_sunflowers_tr + num_tulips_tr
+# total_val = num_roses_val + num_daisy_val + num_dandelion_val + num_sunflowers_val + num_tulips_val
 
-print('total training of rose images:', num_roses_tr)
-print('total training of daisy images:', num_daisy_tr)
-print('total training of dandelion images:', num_dandelion_tr)
-print('total training of sunflowers images:', num_sunflowers_tr)
-print('total training of tulips images: ', num_tulips_tr)
+print(base_dir)
 
-print('total validation of rose images:', num_roses_val)
-print('total validation of daisy images:', num_daisy_val)
-print('total validation of dandelion images:', num_dandelion_val)
-print('total validation of sunflowers images:', num_sunflowers_val)
-print('total validation of tulips images: ', num_tulips_val)
-
-print("Total training images:", total_train)
-print("Total validation images:", total_val)
+# print('total training of rose images:', num_roses_tr)
+# print('total training of daisy images:', num_daisy_tr)
+# print('total training of dandelion images:', num_dandelion_tr)
+# print('total training of sunflowers images:', num_sunflowers_tr)
+# print('total training of tulips images: ', num_tulips_tr)
+#
+# print('total validation of rose images:', num_roses_val)
+# print('total validation of daisy images:', num_daisy_val)
+# print('total validation of dandelion images:', num_dandelion_val)
+# print('total validation of sunflowers images:', num_sunflowers_val)
+# print('total validation of tulips images: ', num_tulips_val)
+#
+# print("Total training images:", total_train)
+# print("Total validation images:", total_val)
 
 # Setting model params
 batch_size = 100

@@ -45,7 +45,7 @@ print("Total training images:", total_train)
 print("Total validation images:", total_val)
 
 # Setting the Model Parameters
-BATCH_SIZE = 100  # Number of training examples to process before updating our models variables
+BATCH_SIZE = 20  # Number of training examples to process before updating our models variables
 IMG_SHAPE = 150  # Our training data consists of images with width of 150 pixels and height of 150 pixels
 
 # Data preparation Images must be formatted into appropriately pre-processed floating point tensors before being fed

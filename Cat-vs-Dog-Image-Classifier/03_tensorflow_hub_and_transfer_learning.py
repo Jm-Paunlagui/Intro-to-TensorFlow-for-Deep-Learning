@@ -1,4 +1,3 @@
-import tensorflow as tf
 import time
 import numpy as np
 import matplotlib.pylab as plt

@@ -129,7 +129,7 @@ model.summary()
 
 # Train the model
 # It's time we train our network.
-# Since our batches are coming from a generator (ImageDataGenerator), we'll use fit_generator instead of fit.
+# Since our batches are coming from a generator (ImageDataGenerator).
 EPOCHS = 100
 history = model.fit_generator(
     train_data_gen,
