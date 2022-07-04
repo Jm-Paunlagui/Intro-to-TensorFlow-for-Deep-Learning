@@ -1,7 +1,9 @@
 import tensorflow as tf
-from keras.optimizer_v2.adam import Adam
+import seaborn as sns
+from keras.optimizers.optimizer_v2.adam import Adam
 from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from keras.utils import pad_sequences
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import io
 import matplotlib.pyplot as plt
 
@@ -58,19 +60,16 @@ testing_padded = pad_sequences(testing_sequences, maxlen=max_length, padding=pad
 
 model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_size, embedding_dim, input_length=max_length),
-    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(embedding_dim,
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(256,
                                                        return_sequences=True)),
-    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(embedding_dim)),
-    tf.keras.layers.Dense(12, activation='relu'),
-    tf.keras.layers.Dropout(0.5),
-    tf.keras.layers.Dense(6, activation='relu'),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
-lr = 3e-4
+lr = 1e-4
 num_epochs = 10
 opt = Adam(learning_rate=lr, decay=lr / num_epochs)
-# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.compile(loss='binary_focal_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy', optimizer=opt, metrics=['accuracy'])
+# model.compile(loss='binary_focal_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.summary()
 
 history = model.fit(training_padded, training_labels_final, epochs=num_epochs,
@@ -78,6 +77,21 @@ history = model.fit(training_padded, training_labels_final, epochs=num_epochs,
 
 loss, accuracy = model.evaluate(testing_padded, testing_labels_final)
 
+predict_p = model.predict(testing_padded)
+predict_p = predict_p.flatten()
+print(predict_p.round(2))
+
+pred = np.where(predict_p > 0.4, 1, 0)
+print(pred)
+
+classi = classification_report(testing_labels_final, pred)
+confu = confusion_matrix(testing_labels_final, pred)
+accu = accuracy_score(testing_labels_final, pred)
+
+# Display the outcome of classification
+print('Classification Report: \n', classi)
+print('Confusion Matrix: \n', confu)
+print('Accuracy Score: \n', accu)
 
 def plot_graphs(history, string):
     plt.plot(history.history[string])
@@ -90,6 +104,9 @@ def plot_graphs(history, string):
 
 plot_graphs(history, "accuracy")
 plot_graphs(history, "loss")
+
+picu = sns.heatmap(confu, annot=True, fmt='d', cmap='Blues')
+plt.show();
 
 # First get the weights of the embedding layer
 e = model.layers[0]

@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from keras.utils import pad_sequences
 import tensorflow_datasets as tfds
 import matplotlib.pyplot as plt
 import numpy as np

@@ -1,7 +1,7 @@
 # Import Tokenizer and pad_sequences
 import tensorflow as tf
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
+from keras.utils import pad_sequences
 
 # Import numpy and pandas
 import numpy as np
@@ -41,7 +41,7 @@ padded_sequences = pad_sequences(sequences, padding='post')
 print(padded_sequences.shape)
 
 # What is the first review?
-print (reviews[0])
+print(reviews[0])
 
 # Show the sequence for the first review
 print(padded_sequences[0])

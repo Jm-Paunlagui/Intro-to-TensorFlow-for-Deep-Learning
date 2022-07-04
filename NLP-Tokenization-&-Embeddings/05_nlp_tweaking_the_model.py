@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from keras.utils import pad_sequences
 
 import matplotlib.pyplot as plt
 
@@ -55,8 +55,8 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(6, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
-# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.comp
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
 model.summary()
 num_epochs = 100
 history = model.fit(training_padded, training_labels_final, epochs=num_epochs,
